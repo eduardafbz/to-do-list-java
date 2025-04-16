@@ -1,5 +1,8 @@
 package com.eduardafbz.service;
 
+import java.util.List;
+
+import com.eduardafbz.model.Task;
 import com.eduardafbz.repository.TaskRepository;
 
 public class TaskService {
@@ -27,7 +30,7 @@ public class TaskService {
     }
 
     public List<Task> delete_all() {
-        return taskRepository.delete_all();
+        return taskRepository.delete_all(tasks);
     }
 
     public Task delete_by_id(int id) {

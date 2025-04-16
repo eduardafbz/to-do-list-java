@@ -2,7 +2,6 @@ package com.eduardafbz.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -63,20 +62,17 @@ public class Task implements Serializable {
     }
 
     public void mark_completed(){
-        this.completed = true
+        this.completed = true;
     }
 
     public void mark_uncompleted() {
-        this.completed = false
-    }
-    
-    @Override
-    public long hashCode() {
-        return Objects.hash(id)
+        this.completed = false;
     }
 
     @Override
     public String toString() {
-        return "Task (id = {}, title = {}, description = {}, completed = {}, created at = {}, updated at = {}".format(id, title, description, completed, createdAt, updatedAt)
+        return String.format(
+            "Task (id = %d, title = %s, description = %s, completed = %b, created at = %s, updated at = %s)",
+            id, title, description, completed, createdAt, updatedAt);
     }    
 }
