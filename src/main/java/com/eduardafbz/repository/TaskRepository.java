@@ -1,16 +1,11 @@
 package com.eduardafbz.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.eduardafbz.model.Task;
 
-public interface TaskRepository {
+@Repository
+public interface TaskRepository extends JpaRepository<Task, Long> {
     
-    Task add(Task task);
-    List<Task> get_all();
-    Task get_by_id(int id);
-    Task update(Task task);
-    void delete_all(List<Task> tasks);
-    Task delete_by_id(int id);
-
 }

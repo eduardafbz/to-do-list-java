@@ -1,12 +1,18 @@
 package com.eduardafbz.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.eduardafbz.model.Task;
 import com.eduardafbz.repository.TaskRepository;
 
+@Service
 public class TaskService {
     
+    @Autowired
     public final TaskRepository taskRepository;
 
     public TaskService(TaskRepository taskRepository) {
@@ -14,27 +20,23 @@ public class TaskService {
     }
 
     public Task add(Task t) {
-        return taskRepository.add(t);
+        return taskRepository.save(t);
     }
 
     public List<Task> get_all() {
-        return taskRepository.get_all();
+        return taskRepository.findAll();
     }
 
-    public Task get_by_id(int id) {
-        return taskRepository.get_by_id(id);
+    public Optional<Task> get_by_id(Long id) {
+        return taskRepository.findById(id);
     }
 
-    public Task update(Task t) {
-        return taskRepository.update(t);
+    public void delete_all() {
+        taskRepository.deleteAll();
     }
 
-    public List<Task> delete_all() {
-        return taskRepository.delete_all(tasks);
-    }
-
-    public Task delete_by_id(int id) {
-        return taskRepository.delete_by_id(id);
+    public void delete_by_id(Long id) {
+        taskRepository.deleteById(id);
     }
 
 }
