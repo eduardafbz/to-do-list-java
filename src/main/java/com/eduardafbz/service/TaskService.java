@@ -23,6 +23,18 @@ public class TaskService {
         return taskRepository.save(t);
     }
 
+    public Task update(Long id, Task tsk) {
+        Task task = taskRepository.getOne(id);
+        updateData(task, tsk);
+        return eventoRepository.save(task);
+    }
+
+    private void updateData(Task task, Task tsk) {
+        task.setTitle(tsk.getTitle());
+        task.setDescription(tsk.getDescription());
+        task.setCompleted(tsk.getCompleted());
+    }
+
     public List<Task> get_all() {
         return taskRepository.findAll();
     }
