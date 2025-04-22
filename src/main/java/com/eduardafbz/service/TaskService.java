@@ -26,7 +26,7 @@ public class TaskService {
     public Task update(Long id, Task tsk) {
         Task task = taskRepository.getOne(id);
         updateData(task, tsk);
-        return eventoRepository.save(task);
+        return taskRepository.save(task);
     }
 
     private void updateData(Task task, Task tsk) {
