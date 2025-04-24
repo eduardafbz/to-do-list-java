@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.eduardafbz.model.Task;
 import com.eduardafbz.service.TaskService;
 
+@RestController
+@RequestMapping(value = "/tasks")
 public class TaskController implements Serializable {
     private static final long serialVersionUID = 1L;
 
