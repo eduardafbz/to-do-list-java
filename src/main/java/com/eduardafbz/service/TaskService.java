@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.eduardafbz.model.Task;
 import com.eduardafbz.repository.TaskRepository;
+import com.eduardafbz.service.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class TaskService {
@@ -24,9 +29,14 @@ public class TaskService {
     }
 
     public Task update(Long id, Task tsk) {
-        Task task = taskRepository.getOne(id);
-        updateData(task, tsk);
-        return taskRepository.save(task);
+        try {
+            Task task = taskRepository.getReferenceById(id);
+            updateData(task, tsk);
+            return taskRepository.save(task);
+        }
+        catch(EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(Task task, Task tsk) {
@@ -39,8 +49,9 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Optional<Task> get_by_id(Long id) {
-        return taskRepository.findById(id);
+    public Task get_by_id(Long id) {
+        Optional<Task> task = taskRepository.findById(id);
+        return task.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public void delete_all() {
@@ -48,7 +59,12 @@ public class TaskService {
     }
 
     public void delete_by_id(Long id) {
-        taskRepository.deleteById(id);
+        try {
+            taskRepository.deleteById(id);
+        }
+        catch(EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
 }

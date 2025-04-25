@@ -8,7 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.ToString;
 
+@ToString
 @Entity
 @Table(name = "tb_task")
 public class Task implements Serializable {
@@ -103,11 +105,4 @@ public class Task implements Serializable {
             return false;
         return true;
     }
-
-    @Override
-    public String toString() {
-        return String.format(
-            "Task (id = %d, title = %s, description = %s, completed = %b, created at = %s, updated at = %s)",
-            id, title, description, completed, createdAt, updatedAt);
-    }    
 }
